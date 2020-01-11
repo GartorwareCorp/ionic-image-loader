@@ -143,6 +143,18 @@ Example:
 this.imageLoaderConfig.enableDebugMode();
 ```
 ---
+#### enableNativeHttp(enable: boolean)
+Enables the usage of advanced http native cordova plugin (instead of angular http) for caching. 
+This can be useful to avoid CORS issues on real devices. 
+**Needs the plugin to be installed in your project!**
+Defaults to `false`.
+
+Example:
+```typescript
+this.imageLoaderConfig.enableNativeHttp(true); // enable native http by default
+```
+
+---
 #### enableSpinner(enable: boolean)
 Sets the cache directory name. Defaults to 'image-loader-cache'. Defaults to `true`.
 
