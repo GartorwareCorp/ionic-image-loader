@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { File, FileEntry } from '@ionic-native/file/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { HTTP } from '@ionic-native/http/ngx';
 import { Platform } from '@ionic/angular';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, first, take } from 'rxjs/operators';
@@ -64,6 +65,7 @@ export class ImageLoaderService {
     private config: ImageLoaderConfigService,
     private file: File,
     private http: HttpClient,
+    private nativeHttp: HTTP,
     private platform: Platform,
     private webview: WebView,
   ) {
@@ -387,12 +389,29 @@ export class ImageLoaderService {
       const fileName = this.createFileName(currentItem.imageUrl);
 
       try {
-        const data: Blob = await this.http.get(currentItem.imageUrl, {
-          responseType: 'blob',
-          headers: this.config.httpHeaders,
-        }).toPromise();
+        let data: Blob;
 
-        const file = await this.file.writeFile(localDir, fileName, data, {replace: true}) as FileEntry;
+        if (this.platform.is('cordova') && this.config.useNativeHttp) {
+          // Use native http to avoid cors issue
+          const nativeHeaders: { [index: string]: string; } = this.config.httpHeaders ?
+            this.config.httpHeaders.keys()
+              .map(key => ({ [key]: this.config.httpHeaders.get(key) }))
+              .reduce((obj, item) => (obj[item.key] = item.value, obj), {})
+            : {};
+          data = (await this.nativeHttp.sendRequest(currentItem.imageUrl, {
+            method: 'get',
+            responseType: 'blob',
+            headers: nativeHeaders
+          })).data;
+        } else {
+          // Native http not enabled or not supported
+          data = await this.http.get(currentItem.imageUrl, {
+            responseType: 'blob',
+            headers: this.config.httpHeaders,
+          }).toPromise();
+        }
+
+        const file = await this.file.writeFile(localDir, fileName, data, { replace: true }) as FileEntry;
 
         if (this.isCacheSpaceExceeded) {
           this.maintainCacheSize();

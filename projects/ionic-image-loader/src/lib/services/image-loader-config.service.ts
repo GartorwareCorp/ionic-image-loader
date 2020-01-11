@@ -7,6 +7,8 @@ import { Injectable } from '@angular/core';
 export class ImageLoaderConfigService {
   debugMode = false;
 
+  useNativeHttp = false;
+
   spinnerEnabled = true;
 
   fallbackAsPlaceholder = false;
@@ -63,6 +65,13 @@ export class ImageLoaderConfigService {
    */
   enableDebugMode() {
     this.debugMode = true;
+  }
+
+  /**
+   * Enables native plugin HTTP for caching in cordova environment.
+   */
+  enableNativeHttp(enable: boolean) {
+    this.useNativeHttp = enable;
   }
 
   /**

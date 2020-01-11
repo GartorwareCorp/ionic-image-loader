@@ -21,6 +21,8 @@ export class AppComponent {
 
     // enable debug mode to get console logs and stuff
     imageLoaderConfig.enableDebugMode();
+    // enable native http calls to avoid cors issue on device
+    imageLoaderConfig.enableNativeHttp(true);
     // set a fallback url to use by default in case an image is not found
     imageLoaderConfig.setFallbackUrl('assets/fallback.png');
 

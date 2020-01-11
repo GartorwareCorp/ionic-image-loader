@@ -4,6 +4,7 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { File } from '@ionic-native/file/ngx';
 import { IonicModule } from '@ionic/angular';
 import { IonicImageLoaderComponent } from './ionic-image-loader.component';
+import { HTTP } from '@ionic-native/http/ngx';
 
 import { ImageLoaderConfigService } from './services/image-loader-config.service';
 import { ImageLoaderService } from './services/image-loader.service';
@@ -25,6 +26,7 @@ export class IonicImageLoader {
         ImageLoaderConfigService,
         ImageLoaderService,
         File,
+        HTTP,
       ],
     };
   }
