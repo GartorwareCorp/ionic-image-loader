@@ -1,6 +1,6 @@
 {
   "name": "ionic-image-loader",
-  "version": "7.0.0-beta.2",
+  "version": "7.0.0-beta.3GT",
   "peerDependencies": {
     "@angular/common": "^8.2.10",
     "@ionic-native/core": "^5.19.1",
