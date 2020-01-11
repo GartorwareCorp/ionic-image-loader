@@ -2,16 +2,16 @@
 
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
     <ion-title>Virtual Scroll</ion-title>
   </ion-toolbar>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content class="ion-padding">
   <ion-virtual-scroll [items]="images" [approxItemHeight]="'70px'">
-    <ion-item *virtualItem="let image" text-wrap>
+    <ion-item *virtualItem="let image" class="ion-text-wrap">
       <ion-avatar slot="start">
         <img-loader [src]="image" useImg [spinner]="false"></img-loader>
       </ion-avatar>
