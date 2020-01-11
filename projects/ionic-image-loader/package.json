@@ -1,5 +1,5 @@
 {
-  "name": "ionic-image-loader",
+  "name": "@gartorware/ionic-image-loader",
   "version": "7.0.0-beta.3GT",
   "peerDependencies": {
     "@angular/common": "^8.2.10",
